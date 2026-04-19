@@ -1,6 +1,6 @@
 # Tower of Hanoi in Python
 
-This project is a simple implementation of the Tower of Hanoi puzzle in Python.
+This is a simple implementation of the Tower of Hanoi puzzle in Python.
 
 ## Features
 - Written in Python 3
