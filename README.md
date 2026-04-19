@@ -2,8 +2,6 @@
 
 This project is a simple implementation of the Tower of Hanoi puzzle in Python.
 
-It was created for a coding challenge that asked for a solution in a scripted language or bash, with clear use of recursion and simple output.
-
 ## Features
 - Written in Python 3
 - Demonstrates recursion clearly
