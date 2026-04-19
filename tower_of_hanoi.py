@@ -1,8 +1,7 @@
 # tower_of_hanoi.py
 # Challenge 1: Tower of Hanoi
 # This program demonstrates recursion by solving the Tower of Hanoi puzzle.
-# It prints each move and shows the current state of the three rods
-# using simple console-based graphics.
+# It also shows simple console-based graphics for visualization.
 
 import time
 
@@ -10,11 +9,18 @@ move_count = 0
 
 
 def print_rods(rods, total_disks):
-    """Print rods as simple vertical graphics."""
+    """
+    This function prints the rods using simple graphics.
+
+    👉 ITERATION:
+    - Uses loops to display rod levels visually.
+    - Outer loop: iterates over levels (top to bottom)
+    - Inner loop: iterates over rods (A, B, C)
+    """
     print()
 
-    for level in range(total_disks - 1, -1, -1):
-        for rod in ["A", "B", "C"]:
+    for level in range(total_disks - 1, -1, -1):   # Iteration over levels
+        for rod in ["A", "B", "C"]:                # Iteration over rods
             if level < len(rods[rod]):
                 disk = rods[rod][level]
                 print(f"{disk}".center(8), end="")
@@ -27,7 +33,13 @@ def print_rods(rods, total_disks):
 
 
 def move_disk(from_rod, to_rod, rods, total_disks):
-    """Move the top disk from one rod to another and print the updated state."""
+    """
+    Moves a disk from one rod to another.
+
+    👉 ITERATION EFFECT:
+    - Called repeatedly during recursion
+    - Updates rod state step-by-step
+    """
     global move_count
 
     disk = rods[from_rod].pop()
@@ -41,19 +53,36 @@ def move_disk(from_rod, to_rod, rods, total_disks):
 
 def solve_hanoi(n, source, auxiliary, destination, rods, total_disks):
     """
-    Recursive function to solve Tower of Hanoi.
+    👉 CORE RECURSION FUNCTION
+
+    This function demonstrates RECURSION.
+
+    Recursion works by breaking the problem into smaller subproblems.
 
     Steps:
-    1. Move n-1 disks from source to auxiliary
-    2. Move the largest disk from source to destination
-    3. Move n-1 disks from auxiliary to destination
+    1. Move (n-1) disks from source → auxiliary  (recursive call)
+    2. Move the largest disk to destination       (actual move)
+    3. Move (n-1) disks from auxiliary → destination (recursive call)
+
+    👉 BASE CASE:
+    When n == 1 → directly move the disk (no further recursion)
+
+    👉 RECURSIVE CASE:
+    Function calls itself with smaller values of n
     """
+
+    # BASE CASE (stops recursion)
     if n == 1:
         move_disk(source, destination, rods, total_disks)
         return
 
+    # RECURSIVE STEP 1
     solve_hanoi(n - 1, source, destination, auxiliary, rods, total_disks)
+
+    # MOVE CURRENT DISK
     move_disk(source, destination, rods, total_disks)
+
+    # RECURSIVE STEP 2
     solve_hanoi(n - 1, auxiliary, source, destination, rods, total_disks)
 
 
@@ -77,8 +106,11 @@ def main():
     }
 
     print("\nInitial State:")
+
+    # 👉 ITERATION USED IN VISUAL DISPLAY
     print_rods(rods, n)
 
+    # 👉 RECURSION STARTS HERE
     solve_hanoi(n, "A", "B", "C", rods, n)
 
     print("\nPuzzle solved!")
