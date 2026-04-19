@@ -3,7 +3,7 @@
 This is a simple implementation of the Tower of Hanoi in Python.
 
 ## Features
-- Written in Python 3
+- Written in Python 
 - Demonstrates recursion clearly
 - Prints every disk move
 - Shows the state of all three rods after each move
