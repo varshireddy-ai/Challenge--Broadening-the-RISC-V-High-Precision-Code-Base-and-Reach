@@ -1,33 +1,45 @@
 # tower_of_hanoi.py
 # Challenge 1: Tower of Hanoi
 # This program demonstrates recursion by solving the Tower of Hanoi puzzle.
-# It prints each move and shows the current state of the three rods.
+# It prints each move and shows the current state of the three rods
+# using simple console-based graphics.
 
 import time
 
 move_count = 0
 
 
-def print_rods(rods):
-    """Print the current state of all rods."""
-    print("\nCurrent Rod State:")
-    for rod_name in ["A", "B", "C"]:
-        print(f"{rod_name}: {rods[rod_name]}")
+def print_rods(rods, total_disks):
+    """Print rods as simple vertical graphics."""
+    print()
+
+    for level in range(total_disks - 1, -1, -1):
+        for rod in ["A", "B", "C"]:
+            if level < len(rods[rod]):
+                disk = rods[rod][level]
+                print(f"{disk}".center(8), end="")
+            else:
+                print("|".center(8), end="")
+        print()
+
+    print("   A       B       C")
     print("-" * 30)
 
 
-def move_disk(from_rod, to_rod, rods):
+def move_disk(from_rod, to_rod, rods, total_disks):
     """Move the top disk from one rod to another and print the updated state."""
     global move_count
+
     disk = rods[from_rod].pop()
     rods[to_rod].append(disk)
     move_count += 1
+
     print(f"Move {move_count}: disk {disk} from {from_rod} to {to_rod}")
-    print_rods(rods)
+    print_rods(rods, total_disks)
     time.sleep(0.3)
 
 
-def solve_hanoi(n, source, auxiliary, destination, rods):
+def solve_hanoi(n, source, auxiliary, destination, rods, total_disks):
     """
     Recursive function to solve Tower of Hanoi.
 
@@ -37,12 +49,12 @@ def solve_hanoi(n, source, auxiliary, destination, rods):
     3. Move n-1 disks from auxiliary to destination
     """
     if n == 1:
-        move_disk(source, destination, rods)
+        move_disk(source, destination, rods, total_disks)
         return
 
-    solve_hanoi(n - 1, source, destination, auxiliary, rods)
-    move_disk(source, destination, rods)
-    solve_hanoi(n - 1, auxiliary, source, destination, rods)
+    solve_hanoi(n - 1, source, destination, auxiliary, rods, total_disks)
+    move_disk(source, destination, rods, total_disks)
+    solve_hanoi(n - 1, auxiliary, source, destination, rods, total_disks)
 
 
 def main():
@@ -65,9 +77,9 @@ def main():
     }
 
     print("\nInitial State:")
-    print_rods(rods)
+    print_rods(rods, n)
 
-    solve_hanoi(n, "A", "B", "C", rods)
+    solve_hanoi(n, "A", "B", "C", rods, n)
 
     print("\nPuzzle solved!")
     print(f"Total moves required: {move_count}")
